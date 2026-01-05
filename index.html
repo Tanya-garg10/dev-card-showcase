@@ -7,9 +7,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Card Showcase</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="Hall of Fame (1).png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
+
+
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div class="circle-container">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const coords = { x: 0, y: 0 };
+          const circles = document.querySelectorAll(".circle");
+
+          circles.forEach(function (circle) {
+            circle.x = 0;
+            circle.y = 0;
+          });
+
+          window.addEventListener("mousemove", function (e) {
+            coords.x = e.pageX;
+            coords.y = e.pageY - window.scrollY; // Adjust for vertical scroll position
+          });
+
+          function animateCircles() {
+            let x = coords.x;
+            let y = coords.y; 
+            circles.forEach(function (circle, index) {
+              circle.style.left = `${x - 12}px`;
+              circle.style.top = `${y - 12}px`;
+              circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
+              const nextCircle = circles[index + 1] || circles[0];
+              circle.x = x;
+              circle.y = y;
+                            x += (nextCircle.x - x) * 0.3;
+              y += (nextCircle.y - y) * 0.3;
+            });
+
+            requestAnimationFrame(animateCircles);
+          }
+
+          animateCircles();
+        });
+
+      </script>
+
 
     <!-- NAVBAR START -->
     <nav class="navbar">
@@ -24,11 +103,40 @@
 
         <ul class="nav-links" id="navLinks">
             <li><a href="index.html">Home</a></li>
-            <li><a href="#">Contributors</a></li>
+            <li><a href="contribute.html">Contribute</a></li>
             <li><a href="https://github.com/Jayanta2004" target="_blank">GitHub</a></li>
+            <li><a href="about.html">About</a></li>
         </ul>
+        
+    <button id="themeToggle" class="theme-toggle">🌙</button>
     </nav>
     <!-- NAVBAR END -->
+
+<!-- 🔍 SEARCH & FILTER SECTION -->
+<section class="search-filter-container">
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="🔍 Search by name..." 
+        onkeyup="filterCards()"
+        autocomplete="off"
+    >
+    
+    <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterByRole('all')">All</button>
+        <button class="filter-btn" onclick="filterByRole('developer')">Developers</button>
+        <button class="filter-btn" onclick="filterByRole('contributor')">Contributors</button>
+        <button class="filter-btn" onclick="filterByRole('maintainer')">Maintainers</button>
+    </div>
+    
+    <select id="sortSelect" class="sort-select" onchange="sortCards()">
+        <option value="default">Sort: Default</option>
+        <option value="az">A-Z</option>
+        <option value="za">Z-A</option>
+        <option value="newest">Newest First</option>
+    </select>
+</section>
+    
 
     <!-- Main heading of the website -->
     <h1><span id="typewriter"></span></h1>
@@ -68,7 +176,7 @@
             <p>"Hello world! This is my first PR."</p>
             <a href="https://github.com/19-mohityadav" class="card-btn" target="_blank">GitHub</a>
         </div>
-
+        
         <div class="card">
             <img src="images/Sameer-Baral.jpg" alt="Sameer's Photo" class="card-img">
             <h2>Sameer Baral</h2>
@@ -397,6 +505,14 @@
         document.addEventListener('DOMContentLoaded', initPagination);
     </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('revealed'), i * 60);
+    });
+});
+</script>
 
 </body>
 
